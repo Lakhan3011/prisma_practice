@@ -10,24 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient({ log: ["info", "query"] });
-function main() {
+const prisma = new client_1.PrismaClient();
+function getUser(username) {
     return __awaiter(this, void 0, void 0, function* () {
-        // ... you will write your Prisma Client queries here
-        yield prisma.user.create({
-            data: {
-                email: "lakhan11@gmail.com",
-                name: "Lakhan Rajput",
+        const res = yield prisma.user.findFirst({
+            where: {
+                email: username,
             },
         });
+        console.log(res);
     });
 }
-main()
-    .then(() => __awaiter(void 0, void 0, void 0, function* () {
-    yield prisma.$disconnect();
-}))
-    .catch((e) => __awaiter(void 0, void 0, void 0, function* () {
-    console.error(e);
-    yield prisma.$disconnect();
-    process.exit(1);
-}));
+getUser("lk@gmail.com");
